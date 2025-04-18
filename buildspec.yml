@@ -1,6 +1,17 @@
 version: 0.2
+
 phases:
+  install:
+    commands:
+      - echo "Installing dependencies..."
+      - pip install -r hello_world/requirements.txt
+
   build:
     commands:
+      - echo "Building the SAM application..."
       - sam build --use-container
-      - sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --capabilities CAPABILITY_IAM --stack-name sam-app-praneeth-cb1 --resolve-s3 
+
+  post_build:
+    commands:
+      - echo "Deploying the SAM application..."
+      - sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --capabilities CAPABILITY_IAM --stack-name sam-app-praneeth-cb1 --resolve-s3
